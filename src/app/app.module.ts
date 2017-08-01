@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TrackingMainComponent } from './tracking-main/tracking-main.component';
+import { TrackingService } from "./tracking-main/tracking.service";
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { TrackingMainComponent } from './tracking-main/tracking-main.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [TrackingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

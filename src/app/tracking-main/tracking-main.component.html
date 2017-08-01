@@ -166,8 +166,15 @@
 <!-- /.container -->
 <!-- Footer -->
 <footer class="py-5 bg-inverse">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+    <div class="container white-text">
+        <p >You have clicked: {{clickTimes}} times</p>
+        <p >You have hovered images: {{clickTimes}} times</p>
+        <p >You have spend on this website: {{clickTimes}}</p>
+        <div class="big" ng-controller="TestCtrl" ng-mousemove="captureCoordinate($event)">
+            <p>Your mouse position is x: {{x}} y: {{y}}</p>
+            <div>x: {{x}}</div>
+            <div>y: {{y}}</div>
+        </div>
     </div>
     <!-- /.container -->
 </footer>
