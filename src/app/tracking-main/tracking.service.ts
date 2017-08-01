@@ -1,22 +1,28 @@
 import { Subject } from "rxjs/Subject";
-import { HostListener } from '@angular/core';
 
 export class TrackingService {
     
-//    eventChanged = new Subject();
+    eventOccured = new Subject();
 
-    private mouseDown : boolean = false;
-    private data = {}
+    private data = {
+        clickTimes: 0
+    }
 
-    @HostListener('mouseup')
-    onMouseup() {
-        this.mouseDown = false;
+    allStorageValues() {
+        let values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;
+
+        while ( i-- ) {
+            values.push( localStorage.getItem(keys[i]) );
+        }
+        console.log(values)
+        return values;
     }
     
-    @HostListener('mousedown', ['$event'])
-    onMousedown(event) {
-        this.mouseDown = true;
-        console.log("mousedown")
+    pullFromLocalStorage(obj) {
+        // this.data = JSON.parse(localStorage.getItem())
+        
     }
 
     toLocalStorageFromObj = function(obj) {
@@ -26,4 +32,9 @@ export class TrackingService {
         })
     }
 
+    getData() {
+        return this.data;
+    }
+
+    
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { TrackingService } from "./tracking.service";
 
 @Component({
@@ -10,8 +10,13 @@ export class TrackingMainComponent implements OnInit {
 
   constructor(private tracking: TrackingService) { }
 
-  private clickTimes : number = 5;
+
+  private data = {
+      clickTimes : 0
+  }
+
   
+  private mouseDown : boolean = false;
 
 
     // @ViewChild('canvas') 
@@ -23,29 +28,35 @@ export class TrackingMainComponent implements OnInit {
 
 
 
+    @HostListener('mouseup')
+    onMouseup() {
+        this.mouseDown = false;
+        this.tracking.eventOccured.next()
+    }
+    
+    @HostListener('mousedown', ['$event'])
+    onMousedown(event) {
+        this.mouseDown = true;
+        this.data.clickTimes+= 1;
+        this.tracking.eventOccured.next()
+    }
 
-    // @HostListener('mousemove', ['$event'])
-    // onMousemove(event: MouseEvent) {
-    //     if(this.mouseDown) {
-    //        this.scene.rotate(
-    //           event.clientX - this.last.clientX,
-    //           event.clientY - this.last.clientY
-    //        );
-    //        this.last = event;
-    //     }
-    // }
+    getDataFromService() {
+      this.data = this.tracking.getData()
+    }
 
-
-
-    // constructor(elementRef: ElementRef, scene: Scene) {
-    //     this.el = elementRef.nativeElement;
-    //     this.scene = scene;
-    // }
 
   ngOnInit() {
     
+    this.tracking.allStorageValues()
+
+    this.getDataFromService()
     
-    
+    //console.log(this.data.clickTimes)    
+    // localStorage.setItem("test","test")
+
+
+
   }
 
 
